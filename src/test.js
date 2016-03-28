@@ -4,7 +4,7 @@
 	describe("Addition", function() {
 
 		it("adds positive numbers", function() {
-			assertEqual(add(3, 4), 7);
+			assertEqual(add(3, 4), 6);
 		});
 
 		it("uses IEEE 754 floating point", function() {
