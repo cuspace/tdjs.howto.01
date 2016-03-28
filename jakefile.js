@@ -14,7 +14,7 @@
 	task("run", {async: true}, function() {
 		jake.exec(
 			"node node_modules/http-server/bin/http-server src",
-			{interactive: true	},
+			{interactive: true},
 			complete
 		);
 	});
