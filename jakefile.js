@@ -63,7 +63,8 @@
 				"Chrome 49.0.2623 (Mac OS X 10.11.4)",
 				"Firefox 48.0.0 (Mac OS X 10.11.0)",
 				"Safari 9.1.0 (Mac OS X 10.11.4)"
-			]
+			],
+			strict: !process.env.loose
 		}, complete, fail);
 	});
 
