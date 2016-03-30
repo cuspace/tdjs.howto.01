@@ -3,3 +3,6 @@ node_modules/**/.bin
 
 # Karma
 node_modules/fsevents/lib/
+
+# generated files
+generated/
