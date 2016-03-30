@@ -10,12 +10,12 @@
 
 	//**** General-purpose tasks
 	desc("Start the Karma server (run this first)");
-	task("karma", {async: true}, function() {
+	task("karma", function() {
 		console.log("Starting Karma server: ");
 		karma.start({
 			configFile: KARMA_CONFIG
 		}, complete, fail);
-	});
+	}, {async: true});
 
 	desc("Default");
 	task("default", ["version", "lint", "test"], function() {
@@ -29,7 +29,7 @@
 			{interactive: true},
 			complete
 		);
-	});
+	}, {async: true});
 
 	desc("Erase all generated files");
 	task("clean", function() {
@@ -52,7 +52,7 @@
 	});
 
 	desc("Lint JavaScript code");
-	task("lint", {async: true}, function() {
+	task("lint", function() {
 		process.stdout.write("Linting JavaScript: ");
 		jshint.checkFiles({
 			files: ["jakefile.js", "src/js/**/*.js"],
@@ -60,10 +60,10 @@
 			globals: lintGlobals()
 		}, complete, fail);
 		//jake.exec("node node_modules/jshint/bin/jshint jakefile.js", {interactive: true}, complete);
-	});
+	}, {async: true});
 
 	desc("Run tests");
-	task("test", {async: true}, function() {
+	task("test", function() {
 		console.log("Testing JavaScript: ");
 		karma.run({
 			configFile: KARMA_CONFIG,
@@ -74,7 +74,7 @@
 			],
 			strict: !process.env.loose
 		}, complete, fail);
-	});
+	}, {async: true});
 
 	desc("Build distribution directory");
 	task("build", [DIST_DIR], function() {
@@ -86,7 +86,7 @@
 			{interactive: true},
 			complete
 		);
-	});
+	}, {async: true});
 	directory(DIST_DIR);
 
 	function lintOptions() {
