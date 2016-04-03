@@ -6,20 +6,27 @@
 
 	describe("Tabs", function() {
 
-		it("has an API", function() {
-
-			// red bar : design activity
-			// What is that API gonna look like?
-			// How do we want out tab to run?
-			tabs.initialize();
-
-
-			//var div = document.createElement("div");
-			//div.innerHTML = "This is an example.";
-			//document.body.appendChild(div);
-			//div.parentNode.removeChild(div);
+		it("hides an element", function() {
+			var element = addElement("div");
+			tabs.initialize(element);
+			assert.equal(getDisplayProperty(element), "none");
+			removeElement(element);
 		});
 
+		function addElement(tagName) {
+			var element = document.createElement(tagName);
+			document.body.appendChild(element);
+			return element;
+		}
+		function getDisplayProperty(element) {
+			var styles = getComputedStyle(element);
+			return styles.getPropertyValue("display");
+		}
+
+		function removeElement(element) {
+			element.parentNode.removeChild(element);
+		}
+		
 	});
 
 }());
