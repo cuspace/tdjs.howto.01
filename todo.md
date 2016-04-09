@@ -1,6 +1,6 @@
 * [ ] Deal with clicks?
 * [ ] Mark a tab as active
-* [ ] Not hide active content div
+* [x] Not hide active content div
 
 * [x] Hide all content divs
 
