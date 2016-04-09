@@ -6,28 +6,51 @@
 
 	describe("Tabs", function() {
 
-		it("sets a class on an element when that element has no existing classes", function() {
-			var element = addElement("div");
-			tabs.initialize(element, "someClass");
-			assert.equal(getClass(element), "someClass");
-			removeElement(element);
+		var container;
+
+		beforeEach(function() {
+			container = document.createElement("div");
+			document.body.appendChild(container);
 		});
 
-		it("set a class on an element without erasing existing classes", function() {
+		afterEach(function() {
+			removeElement(container);
+		});
+
+		it("hide an element by setting a class", function() {
+			var element = addElement("div");
+			tabs.initialize( [ element ], "someClass");
+			assert.equal(getClasses(element), "someClass");
+		});
+
+		it("hides multiple elements", function() {
+			var element1 = addElement("div");
+			var element2 = addElement("div");
+			var element3 = addElement("div");
+
+			tabs.initialize( [ element1, element2, element3 ], "hideClass");
+
+			// assert that elements are hidden
+			assert.equal(getClasses(element1), "hideClass", "element 1");
+			assert.equal(getClasses(element2), "hideClass", "element 2");
+			assert.equal(getClasses(element3), "hideClass", "element 3");
+		});
+
+		it("preserves existing classes when hiding an element", function() {
 			var element = addElement("div");
 			element.setAttribute("class", "existingClass");
-			tabs.initialize(element, "newClass");
-			assert.equal(getClass(element), "existingClass newClass");
-			removeElement(element);
+			tabs.initialize( [ element ], "newClass");
+			assert.equal(getClasses(element), "existingClass newClass");
 		});
 
-		function getClass(element) {
+
+		function getClasses(element) {
 			return element.getAttribute("class");
 		}
 
 		function addElement(tagName) {
 			var element = document.createElement(tagName);
-			document.body.appendChild(element);
+			container.appendChild(element);
 			return element;
 		}
 
