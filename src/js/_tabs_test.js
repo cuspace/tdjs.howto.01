@@ -29,9 +29,9 @@
 			tabs.initialize({
 				tabs: [ createTab(), defaultTab, createTab() ],
 				content: [ content1, defaultContent, content3 ],
-				default: defaultTab,//defaultContent,
+				defaultTab: defaultTab,//defaultContent,
 				activeTabClass: IRRELEVANT,
-				contentHideClass: "hideClass"
+				hiddenContentClass: "hideClass"
 			});
 
 			// assert that elements are hidden
@@ -50,9 +50,9 @@
 			tabs.initialize({
 				tabs: [ defaultTab, createTab() ],
 				content: [ defaultContent, hiddenContent],
-				default: defaultTab,
+				defaultTab: defaultTab,
 				activeTabClass: IRRELEVANT,
-				contentHideClass: "newClass"
+				hiddenContentClass: "newClass"
 			});
 			assert.equal(getClasses(hiddenContent), "existingClass newClass");
 		});
@@ -67,9 +67,9 @@
 			tabs.initialize({
 				tabs: [ tab1, defaultTab, tab3 ],
 				content: [ createTabContent(), defaultContent, createTabContent() ],
-				default: defaultTab,
+				defaultTab: defaultTab,
 				activeTabClass: "activeTab",
-				contentHideClass: IRRELEVANT
+				hiddenContentClass: IRRELEVANT
 			});
 
 			assert.equal(getClasses(tab1), null, "tab1 should not be styled");
