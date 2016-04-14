@@ -37,9 +37,9 @@
 			});
 
 			// assert that elements are hidden
-			assertContentHidden(content1, "content 1");
-			assertContentVisible(defaultContent, "default content");
-			assertContentHidden(content3, "content 3");
+			assertContentHidden(content1, "content 1 should be hidden");
+			assertContentVisible(defaultContent, "default content should be visible");
+			assertContentHidden(content3, "content 3 should be hidden");
 		});
 
 		it("styles the default tab with a class upon initialization", function() {
@@ -57,20 +57,12 @@
 				hiddenContentClass: IRRELEVANT
 			});
 
-			assertTabInactive(tab1, "tab1");
-			assertTabActive(defaultTab, "default tab");
-			assertTabInactive(tab3, "tab3");
+			assertTabInactive(tab1, "tab1 should be inactive");
+			assertTabActive(defaultTab, "default tab should be active");
+			assertTabInactive(tab3, "tab3 should be inactive");
 		});
 
-		function assertTabActive(element, elementName) {
-			assert.equal(getClasses(element), ACTIVE_TAB, elementName + " should be active");
-		}
-
-		function assertTabInactive(element, elementName) {
-			assert.equal(getClasses(element), null, elementName + " should NOT be active");
-		}
-
-		it("switch content when tab is clicked", function() {
+		it("switches content when tab is clicked", function() {
 			var tab1 = createTab();
 			var tab2 = createTab();
 			var tab3 = createTab();
@@ -83,16 +75,19 @@
 				tabs: [ tab1, tab2, tab3 ],
 				content: [ content1, content2, content3 ],
 				defaultTab: tab1,
-				activeTabClass: "activeTab",
+				activeTabClass: ACTIVE_TAB,
 				hiddenContentClass: HIDDEN_CONTENT
 			});
 
-			// click tab2
-			// assert content2 is visible
-			// assert content1 is no longer visible
+			tab2.click();
+			assertContentVisible(content2, "content2 should be visible after click");
+			assertTabActive(tab2, "tab2 should be visible after click");
 
-			// assert tab2 is active
-			// assert tab1 is no longer active
+			assertContentHidden(content1, "content1 should no longer be visible after click");
+			assertTabInactive(tab1, "tab1 should no longer be visible after click");
+
+			tab3.click();
+			assertContentVisible(content3, "should be able to click multiple tabs");
 	});
 
 		it("preserves existing classes when adding new classes", function() {
@@ -115,16 +110,26 @@
 			assert.equal(getClasses(hiddenContent), "existingContentClass hiddenContent", "content should preserve existing classes");
 		});
 
-		function assertContentHidden(element, elementName) {
-			assert.equal(getClasses(element), HIDDEN_CONTENT, elementName + " should be hidden");
+		function assertTabActive(element, message) {
+			assert.equal(getClasses(element), ACTIVE_TAB, message);
 		}
 
-		function assertContentVisible(element, elementName) {
-			assert.equal(getClasses(element), "", elementName + " should not be hidden");
+		function assertTabInactive(element, message) {
+			assert.equal(getClasses(element), "", message);
+		}
+
+		function assertContentHidden(element, message) {
+			assert.equal(getClasses(element), HIDDEN_CONTENT, message);
+		}
+
+		function assertContentVisible(element, message) {
+			assert.equal(getClasses(element), "", message);
 		}
 
 		function getClasses(element) {
-			return element.getAttribute("class");
+			var result = element.getAttribute("class");
+			if (result === null) result = "";
+			return result;
 		}
 
 		function createTab() {
