@@ -11,14 +11,17 @@
 		checkOption(options.activeTabClass, "options.activeTabClass");
 		checkOption(options.hiddenContentClass, "options.hiddenContentClass");
 
+		handleClicks(options);
 		showTab(options.defaultTab, options);
+	};
 
+	function handleClicks(options) {
 		options.tabs.forEach(function(tabElement) {
 			tabElement.addEventListener("click", function(event) {
 				showTab(event.target, options);
 			});
 		});
-	};
+	}
 
 	function showTab(tabToShow, options) {
 		//var activeIndex = findIndexOfDefaultElement(content, defaultElement);
@@ -36,11 +39,11 @@
 		contentToShow.classList.remove(options.hiddenContentClass);
 	}
 
-	function findIndex(contentTabs, defaultContentTab) {
+	function findIndex(contentTabs, tabToShow) {
 		for(var i = 0; i < contentTabs.length; i++) {
-			if(contentTabs[i] === defaultContentTab) return i;
+			if(contentTabs[i] === tabToShow) return i;
 		}
-		throw new Error("Could not find default in list");
+		throw new Error("Could not find tab to show" + tabToShow.outerHTML);
 	}
 
 	function checkOption(option, name) {
