@@ -17,8 +17,8 @@
 
 	function handleClicks(options) {
 		options.tabs.forEach(function(tabElement) {
-			tabElement.addEventListener("click", function(event) {
-				showTab(event.target, options);
+			tabElement.addEventListener("click", function() {
+				showTab(tabElement, options);
 			});
 		});
 	}
@@ -43,7 +43,7 @@
 		for(var i = 0; i < contentTabs.length; i++) {
 			if(contentTabs[i] === tabToShow) return i;
 		}
-		throw new Error("Could not find tab to show" + tabToShow.outerHTML);
+		throw new Error("Could not find tab to show " + tabToShow.outerHTML);
 	}
 
 	function checkOption(option, name) {
